@@ -15,7 +15,7 @@ Before you begin, ensure you have the following installed on your machine:
 
 The frontend is built using your preferred framework. Follow these steps to set up the frontend:
 
-1. Navigate to the frontend directory:
+1. Navigate to the frontend directory and run the scripts below:
 
    ```bash
    cd frontend
@@ -25,7 +25,7 @@ The frontend is built using your preferred framework. Follow these steps to set 
 
 ### 2. Backend Setup
 
-2. Navigate to the backend directory:
+1. Navigate to the backend directory and run the scripts below:
 
    ```bash
    cd backend
