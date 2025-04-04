@@ -13,8 +13,6 @@ Before you begin, ensure you have the following installed on your machine:
 
 ### 1. Frontend Setup
 
-The frontend is built using your preferred framework. Follow these steps to set up the frontend:
-
 1. Navigate to the frontend directory and run the scripts below:
 
    ```bash
