@@ -23,6 +23,9 @@ const URL = "http://localhost:4000/notes";
 const useNoteStore = create<NoteStore>((set, get) => ({
   notes: [],
 
+  /**
+   * Fetches all notes an updates the store
+   */
   loadNotes: async () => {
     try {
       const res = await axios.get<Note[]>(URL);
@@ -32,7 +35,11 @@ const useNoteStore = create<NoteStore>((set, get) => ({
     }
   },
 
-  addNote: async (note) => {
+  /**
+   * Adds a new note and updates the store
+   * @param note
+   */
+  addNote: async (note: Note) => {
     try {
       await axios.post(URL, note);
       set({ notes: [note, ...get().notes] });
@@ -40,6 +47,10 @@ const useNoteStore = create<NoteStore>((set, get) => ({
       console.error("Failed to add note:", err);
     }
   },
+  /**
+   * Deletes a note by ID and updates the store
+   * @param noteId ID of the note
+   */
   deleteNote: async (noteId: string) => {
     try {
       await axios.delete(`${URL}/${noteId}`);
@@ -50,7 +61,11 @@ const useNoteStore = create<NoteStore>((set, get) => ({
       console.error("Failed to delete note:", err);
     }
   },
-
+  /**
+   * Updates a note
+   * @param id note ID
+   * @param updatedFields Object containing the fields to update
+   */
   editNote: async (id, updatedFields) => {
     try {
       await axios.put(`${URL}/${id}`, updatedFields);
@@ -60,8 +75,12 @@ const useNoteStore = create<NoteStore>((set, get) => ({
       console.error("Failed to edit note:", err);
     }
   },
-
-  markAsCompleted: async (id, completed) => {
+  /**
+   * Updates the status of a note
+   * @param id note ID
+   * @param completed note status
+   */
+  markAsCompleted: async (id: string, completed: boolean) => {
     try {
       await axios.put(`${URL}/${id}`, { completed });
       const res = await axios.get<Note[]>(URL);
