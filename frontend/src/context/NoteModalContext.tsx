@@ -4,6 +4,7 @@ import {
   useState,
   ReactNode,
   useCallback,
+  useEffect,
 } from "react";
 import toast from "react-hot-toast";
 import useAuthStore from "@/store/useAuthStore";
@@ -59,6 +60,20 @@ export const NoteModalProvider = ({ children }: { children: ReactNode }) => {
     }
     setIsOpen(false);
     setSelectedNote(null);
+  }, [selectedNote, username]);
+
+  useEffect(() => {
+    const handleUnload = () => {
+      if (selectedNote?.id && username) {
+        socket.emit("stoppedEditing", { noteId: selectedNote.id, username });
+      }
+    };
+
+    window.addEventListener("beforeunload", handleUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleUnload);
+    };
   }, [selectedNote, username]);
 
   return (

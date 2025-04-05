@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 import socket from "@/utils/socket";
+import useAuthStore from "@/store/useAuthStore";
 
 const useNoteSocketEvents = (
   loadNotes: () => void,
@@ -8,6 +9,8 @@ const useNoteSocketEvents = (
     React.SetStateAction<{ [noteId: string]: string[] }>
   >
 ) => {
+  const { username } = useAuthStore();
+
   useEffect(() => {
     const handleLoadNote = () => {
       loadNotes();
@@ -23,6 +26,8 @@ const useNoteSocketEvents = (
     socket.on(
       "currentEditingNotes",
       (currentEditingNotes: { noteId: string; username: string }[]) => {
+        if (currentEditingNotes[0]?.username === username) return;
+
         const newEditingUsers = currentEditingNotes.reduce(
           (acc, { noteId, username }) => {
             if (!acc[noteId]) {

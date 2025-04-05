@@ -5,9 +5,12 @@ import OnlineUsers from "@/components/OnlineUsers";
 import NoteModal from "../components/NoteModal";
 import { NoteModalProvider } from "@/context/NoteModalContext";
 import socket from "@/utils/socket";
+import { useEffect } from "react";
 
 const Home = () => {
-  socket.emit("userJoined");
+  useEffect(() => {
+    socket.emit("userJoined");
+  }, []);
 
   return (
     <>
