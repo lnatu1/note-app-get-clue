@@ -15,9 +15,10 @@ const Register = () => {
   };
 
   const handleSubmit = () => {
-    if (username.trim()) {
-      saveUsername(username);
-      socket.emit("setUsername", username);
+    const _username = username.trim();
+    if (_username) {
+      saveUsername(_username);
+      socket.emit("setUsername", _username);
       navigate("/");
     } else {
       alert("Please enter a username");
